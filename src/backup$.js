@@ -55,10 +55,10 @@ function engine$() {
                                        },
                                        [backupDir] )
              )
-             /* Remove the directory
+             // Remove the directory
              .then( () => fsPromises.rm( backupDir, 
                                          { recursive: true } )
-             )*/
+             )
           }
     )
     /* Throwing error in the engine cycle will let main app.js know engine did not successfully start */
@@ -129,8 +129,8 @@ function replicate$( dbName,
 
    // Replicate down to levelDB
    return replicateDB.replicate.to( backupDB )                                                        // Pouch oneshot replication
-   .then( () => traceDB$( backupDB )
-   )
+   .then( () => {} )                                                                                  // As relicate.to does not return object with finally mathof!?
+   // .then( () => traceDB$( backupDB ) )                                                             // Trace out backed up DB. You'll also need to disable deleting of directory once zipped
    .finally( () => {
       Promise.all([
          replicateDB.close().catch( error => logger.ERROR("replicate$ finally replicateDB", { dbName } ) ),
@@ -144,16 +144,9 @@ function replicate$( dbName,
 /* replicateUsers$ =====================================================================================
    RESOLVE: _users documents replicated from server to backupDB                                       */
 function replicateUsers$( backupDir ) {
-
-   /* create a pouchDB to write _users documents to. Note no leading _ in name as this is not attempting
-      to serve as a system database, it is just a back repository.
-   */
- //  let usersDB = new PouchDB( backupDir + "/all_users" );
-   
    return axios.get(
       env.middleware.url + '/monitor/all_users',
-      { auth: env.middleware.auth.basic
-      }
+      { auth: env.middleware.auth.basic }
    )
    .then( response => fsPromises.writeFile( backupDir + "/_users.json",
                                            JSON.stringify(response.data,
