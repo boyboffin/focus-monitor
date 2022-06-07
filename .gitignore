@@ -1,0 +1,9 @@
+# Contains deploy specific details
+/config.env.js
+
+# Destination for my logger and backup module
+/logs
+/backups
+
+# dependencies
+/node_modules
