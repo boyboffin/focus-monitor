@@ -8,7 +8,6 @@ Where possible focus-monitor does things the CouchDB way, synchronising and repl
 Machines that can, or should be backing up FOCUS.
 1. EM0035: This is a primary monitor and needs to be regularly checked. Nick or James.
 2. 17-5000: Intermittent monitor. James.
-3. TODO: Nick. A cloud monitor. A small AWS lightsail may be the go, or a couple of containers.
 
 ## Setup and update a monitor
 ### Node
@@ -25,7 +24,6 @@ You can substitute your own root directory for c:\focus\focus-monitor
 7. $ create or copy in a config.env.js and point to server you are backing up e.g.
      - https://focus.emergingminds.com.au/mw
      - https://focus.emergingminds.com.au/db
-     - TODO: James provide schema and example config.env.js
 
 #### Update
 A monitor needs to be manually updated if this app changes.
@@ -35,8 +33,6 @@ A monitor needs to be manually updated if this app changes.
       
 ### CouchDB
 https://www.docker.com/ is preferred way to run a local CouchDB. 
-TODO: Docker crashes on startup 90% of time. I have had success if
-I first stop the Docker Desktop Service in Component Services and the start Docker Desktop from desktop icon.
 
 Docker account
 1. email: focus@emergingminds.com.au
@@ -53,9 +49,7 @@ Docker account
 - http://localhost:5984/_utils
 
 #### Update
-TODO: Work this out. Remember that the monitor will work with any new DB, so maybe the simplest and safest update is to spin up a new image
-and point monitor at it, then delete old image. This will pull down entire CouchDB instance from server. A neat alternative would be to
-first replicate from the old one, then hook into the new one. That's be super cool.
+Issue outstanding.
   
 ## Running monitor
 ### Start
@@ -64,7 +58,6 @@ first replicate from the old one, then hook into the new one. That's be super co
    - Wait until Docker reports it running
    -  Wait another minute or so if can. While not necessary, this is opportunity to fully synce before first backup runs.
       If you hit it too soon you'll see error messages, but subsequent backup should be fine. Problem is that may be a day away.
-      TODO: write up how to check status of _replicators, or even better poll for it and let user know!
 2. Monitor node app
    - $ cd c:\focus\focus-monitor
    - $ node ./src/pp.js
@@ -86,7 +79,6 @@ first replicate from the old one, then hook into the new one. That's be super co
 
 #### Inspecting backups
 Commented code in backup module allows you to write the pouchdb-node levelDB DB to JSON.
-TODO: make this configurable, maybe from an endpoint?
      
 ### Required actions
 #### Deleted DB on PROD
