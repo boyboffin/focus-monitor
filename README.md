@@ -105,7 +105,7 @@ Resolve this by manually removing _replicator document from local CouchDB, and t
 {
    "selector": {
       "source.url": {
-         "$eq": "https://dev.focus.emergingminds.com.au/db/org_broadcast_bar_f3a5eacf-091e-4736-a80b-374fc5731fad"
+         "$eq": "https://dev.focus.emergingminds.com.au/db/org_broadcast_bar_f3a5eacf-0"
       }
    }
 }
