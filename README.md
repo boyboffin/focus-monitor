@@ -2,15 +2,7 @@
 1. maintain synced copy of Focus CouchDB instance
 2. regularily snapshot backups to disk
 
-Backing up CouchDB using it's replication abilities is the correct approach. This gets you the history of documents and when you restore 
-from the backup (also using replication) you'll end up with the original DB. That is important as couchDB resolves conflicts by 
-looking at the history, so restoring a DB by say creating a new one and dropping in the current document will result in a server that 
-is less authoratative than any other DB syncing back to it. Probably not what you want. So this solution utilizes a local CouchDB instance.
-
-While we could snapshot the DB files of our local CouchDB instance, I have instead opted for one off replications to a pouchdb-node
-which creates a directory for each DB. We then zip up those directories. This way we are relying on couchdb/pouchdb technology all
-the way, and are bouncing down to a static replication before zipping it up. It also means that extracting JSON documents from a backup
-can be dome via pouchdb-node rather than invoking a CouchDB instance. This is not directly supported yet, see backup.traceDB$ for some guidance.
+Where possible focus-monitor does things the CouchDB way, synchronising and replicating. This retains document history upon which conflict resolution relies. An identified CouchDB instance is synced to a local CouchDB instance, which is the replicated to pouchdb-node to levelDB snapshots. These snapshots can be accessed by pouchdb-node and bounced to json if required.
 
 ## Monitors
 Machines that can, or should be backing up FOCUS.
@@ -100,7 +92,8 @@ It does not break the monitor, but there will be ongoing error messages as the l
 Resolve this by manually removing _replicator document from local CouchDB, and this needs to be done for each monitor.
 1. Log into local CouchDB
 2. Open the _replicator DB
-3. Open MAngo query tab and search for document replicating the deleted DB (see example query below)
+3. Open Mango query tab and search for document replicating the deleted DB (see example query below)
+4. Open the replicator document and delete it
 ```
 {
    "selector": {
