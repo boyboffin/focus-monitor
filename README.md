@@ -2,7 +2,7 @@
 1. maintain synced copy of Focus CouchDB instance
 2. regularily snapshot backups to disk
 
-Where possible focus-monitor does things the CouchDB way, synchronising and replicating. This retains document history upon which conflict resolution relies. An identified CouchDB instance is synced to a local CouchDB instance, which is the replicated to pouchdb-node to levelDB snapshots. These snapshots can be accessed by pouchdb-node and bounced to json if required.
+Where possible focus-monitor does things the CouchDB way, synchronising and replicating. This retains document history upon which conflict resolution relies. An identified CouchDB instance is synced to a local CouchDB instance, which is replicated to pouchdb-node levelDB snapshots.
 
 ## Monitors
 Machines that can, or should be backing up FOCUS.
@@ -84,7 +84,10 @@ first replicate from the old one, then hook into the new one. That's be super co
      -  two new DB, org_xxx and asmt_xxx
      -  The users for the new org appear in _users backup.
 
-
+#### Inspecting backups
+Commented code in backup module allows you to write the pouchdb-node levelDB DB to JSON.
+TODO: make this configurable, maybe from an endpoint?
+     
 ### Required actions
 #### Deleted DB on PROD
 Focus does not provide programatic means of deleting DB, so this should only occur when explicity undertaken by admin.
