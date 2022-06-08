@@ -100,9 +100,3 @@ Resolve this by manually removing _replicator document from local CouchDB, and t
 ```
 
 
-## Known issues
-   1. Docker not starting, this is serious
-   2. When first fired up monitor, it did not create backup directory for first snalshot, instead erroring out.
-      Only seen this issue on this machine.
-      Consider creating backup directory before starting to backup.
-
