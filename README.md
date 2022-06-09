@@ -42,11 +42,18 @@ Docker account
      
 #### Install
 1. https://hub.docker.com/_/couchdb
-2. $ docker run -d -p 5984:5984 --name focus-monitor-couchdb -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=<Ask James> couchdb:3.2.2
-3. create these three system db manually from within fauxton: [_global_changes, _users, _replicator]
-
-- $ docker container start focus-monitor-couchdb
-- http://localhost:5984/_utils
+2. $ docker run -d -p 5984:5984 --name focus-monitor-couchdb -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=**Ask James** couchdb:3.2.2
+3. create three system db manually from within fauxton
+   - $ docker container start focus-monitor-couchdb
+   - http://localhost:5984/_utils
+     - Login as admin
+     - Databases (Hard Disk icon left toolbar) -> Create Database (Hard Disk + icon top right) -> name, not partitioned, create
+       - _global_changes
+       - _users
+       - _replicator
+   - Verify installation
+     - Toolbar button with tick in left column
+     - Verify installation button
 
 #### Update
 Issue outstanding.
@@ -60,7 +67,7 @@ Issue outstanding.
       If you hit it too soon you'll see error messages, but subsequent backup should be fine. Problem is that may be a day away.
 2. Monitor node app
    - $ cd c:\focus\focus-monitor
-   - $ node ./src/pp.js
+   - $ node ./src/app.js
    - Wait until you see backup successful log
    - check .\backups for a file named <timestamp>.tgz
 
