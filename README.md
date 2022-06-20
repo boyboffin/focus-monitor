@@ -49,10 +49,8 @@ Docker account
    - $ docker container start focus-monitor-couchdb
    - http://localhost:5984/_utils
      - Login as admin
-     - Databases (Hard Disk icon left toolbar) -> Create Database (Hard Disk + icon top right) -> name, not partitioned, create
-       - _global_changes
-       - _users
-       - _replicator
+     - Click setup (spanner left toolbar)
+     - Select Single Node. Provide same admin details again, leave rest as is.
    - Verify installation
      - Toolbar button with tick in left column
      - Verify installation button
