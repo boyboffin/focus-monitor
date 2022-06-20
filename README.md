@@ -10,9 +10,11 @@ Machines that can, or should be backing up FOCUS.
 2. 17-5000: Intermittent monitor. James.
 
 ## Setup and update a monitor
-### Node
+### Node + GIT
 #### Install
-https://nodejs.org latest stable.
+https://nodejs.org latest stable
+
+https://git-scm.com/download/win latest stable
 
 You can substitute your own root directory for c:\focus\focus-monitor
 1. $ cd c:\focus
