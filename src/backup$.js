@@ -37,7 +37,8 @@ function engine$() {
    backupName = coding.sundry.isoFileName();
    let backupDir = env.backup.relativeDir + backupName;
    
-   return replicatedDB$()
+   return fsPromises.mkdir( backupDir )
+   .then( () => replicatedDB$() )
     // Replicate ReplicateCDB to a new PouchDB then tar and compress it's directory
    .then( replicatedDB  => {
              
