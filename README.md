@@ -6,7 +6,7 @@ Where possible focus-monitor does things the CouchDB way, synchronising and repl
 
 ## Monitors
 Machines that can, or should be backing up FOCUS.
-1. EM0035: This is a primary monitor and needs to be regularly checked. Nick or James.
+1. EM0149: This is a primary monitor and needs to be regularly checked. Nick or James.
 2. 17-5000: Intermittent monitor. James.
 
 ## Setup and update a monitor
@@ -45,7 +45,7 @@ Docker account
 #### Install
 1. https://hub.docker.com/_/couchdb
 2. $ docker run -d -p 5984:5984 --name focus-monitor-couchdb -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=**Ask James** couchdb:3.2.2
-3. create three system db manually from within fauxton
+3. Finish setting up CouchDB (check this with Nick)
    - $ docker container start focus-monitor-couchdb
    - http://localhost:5984/_utils
      - Login as admin
@@ -91,19 +91,26 @@ Commented code in backup module allows you to write the pouchdb-node levelDB DB 
 #### Deleted DB on PROD
 Focus does not provide programatic means of deleting DB, so this should only occur when explicity undertaken by admin.
 It does not break the monitor, but there will be ongoing error messages as the local _replicator fails to find the remote DB.
+Those messages will take for replicator$ state crashing error: db_not_found <name of DB>
 Resolve this by manually removing _replicator document from local CouchDB, and this needs to be done for each monitor.
-1. Log into local CouchDB
-2. Open the _replicator DB
-3. Open Mango query tab and search for document replicating the deleted DB (see example query below)
-4. Open the replicator document and delete it
-```
-{
-   "selector": {
-      "source.url": {
-         "$eq": "https://dev.focus.emergingminds.com.au/db/org_broadcast_bar_f3a5eacf-0"
-      }
-   }
-}
-```
-
+Two wqays to do this:
+1. Find the _replicator document in _replicator DB and delete it
+   - Log into local CouchDB
+   - Open the _replicator DB
+   - Open Mango query tab and search for document replicating the deleted DB (see example query below)
+   - Open the replicator document and delete it
+     ```
+     {
+        "selector": {
+           "source.url": {
+              "$eq": "https://dev.focus.emergingminds.com.au/db/org_broadcast_bar_f3a5eacf-0"
+           }
+        }
+     }
+     ```
+2. Find replicator process that has failed and delete document from there
+   - In left toolbar click replication button (image shows docs going both left and right)
+   - find failed replication task and verify name of DB you know to be deleted
+   - click delete replication doc (button picture of bin)
+The second apprach simpler, but on occasion the replication task list does not show problematic task!?
 
