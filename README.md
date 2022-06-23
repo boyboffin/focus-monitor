@@ -91,10 +91,9 @@ Commented code in backup module allows you to write the pouchdb-node levelDB DB 
 #### Deleted DB on PROD
 Focus does not provide programatic means of deleting DB, so this should only occur when explicity undertaken by admin.
 It does not break the monitor, but there will be ongoing error messages as the local _replicator fails to find the remote DB.
-Those messages will take for replicator$ state crashing error: db_not_found <name of DB>
-Resolve this by manually removing _replicator document from local CouchDB, and this needs to be done for each monitor.
-Two wqays to do this:
-1. Find the _replicator document in _replicator DB and delete it
+Those messages will report replicator$ state crashing error: db_not_found <name of DB>
+Resolve this by manually by removing _replicator document from local CouchDB in one of two following ways:
+1. Find the document in _replicator DB and delete it
    - Log into local CouchDB
    - Open the _replicator DB
    - Open Mango query tab and search for document replicating the deleted DB (see example query below)
@@ -112,5 +111,5 @@ Two wqays to do this:
    - In left toolbar click replication button (image shows docs going both left and right)
    - find failed replication task and verify name of DB you know to be deleted
    - click delete replication doc (button picture of bin)
-The second apprach simpler, but on occasion the replication task list does not show problematic task!?
+The second approach simpler, but on occasion the replication task list does appear to be complete?
 
